@@ -1,17 +1,15 @@
-import { useState } from 'react';
-import Header from './components/Header/Header';
-import SearchForm from './components/SearchForm/SearchForm';
+import { Route, Routes } from 'react-router-dom';
+import Homepage from './pages/Homepage';
 import './styles/globals.scss';
-import Card from './components/Card/Card';
+import SearchCardPage from './pages/SearchCardPage';
 
 function App() {
-  const [card, setCard] = useState(null);
   return (
-    <>
-      <Header title={'MTG Application'} />
-      <SearchForm setCard={setCard} />
-      {card && <Card card={card} />}
-    </>
+    <Routes>
+      <Route path='/' element={<Homepage />} />
+      <Route path='/search-card' element={<SearchCardPage />} />
+      <Route path='*' element={<Homepage />} />
+    </Routes>
   );
 }
 

@@ -2,17 +2,18 @@ import styles from './Card.module.scss';
 
 const Card = (props) => {
   const { name, price, rarity, set, src_png, tcplayer, type } = props.card;
+  let rarityCap = rarity[0].toUpperCase() + rarity.substr(1);
   return (
-    <article className={styles.cardHeader}>
+    <article className={styles.cardWrapper}>
       <header className={styles.cardHeader}>
         <img src={src_png} alt='' />
-        <h2>{name}</h2>
       </header>
       <main className={styles.articleBody}>
+        <h2>{name}</h2>
         <ul className={styles.cardAttrs}>
           <li>
             <p>Rarity</p>
-            <span>{rarity}</span>
+            <span>{rarityCap}</span>
           </li>
           <li>
             <p>Type</p>

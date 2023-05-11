@@ -1,6 +1,6 @@
 export const getCard = async (searchType, searchText) => {
   const request =
-    searchType !== 'random card'
+    searchType !== 'RANDOM_CARD'
       ? `https://api.scryfall.com/cards/named?${searchType}=${searchText}`
       : `https://api.scryfall.com/cards/random`;
 
@@ -8,11 +8,12 @@ export const getCard = async (searchType, searchText) => {
     .then((response) => response.json())
     .then((data) => ({
       name: data.name,
-      price: data.prices.usd,
+      price: data.prices.usd || null,
       rarity: data.rarity,
-      tcgplayer: data.purchase_uris.tcgplayer,
-      src_png: data.image_uris.normal,
+      tcgplayer: data.purchase_uris.tcgplayer || null,
+      src_png: data.image_uris.normal || null,
       set: data.set_name,
       type: data.type_line
-    }));
+    }))
+    .catch((err) => console.error(err));
 };

@@ -1,11 +1,18 @@
 import classNames from 'classnames';
-import styles from './SearchForm.module.scss';
 import { useState } from 'react';
+import Select from 'react-select';
 import { getCard } from '../../fetches/getCard';
+import styles from './SearchForm.module.scss';
 
 const SearchForm = (props) => {
   const { setCard } = props;
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({ searchType: 'fuzzy' });
+
+  const selectOptions = [
+    { value: 'fuzzy', label: 'Fuzzy' },
+    { value: 'exact', label: 'Exact' },
+    { value: 'RANDOM_CARD', label: 'Random Card' }
+  ];
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -14,7 +21,7 @@ const SearchForm = (props) => {
     // formData.forEach((value, property) => (responseBody[property] = value));
     // console.log(responseBody);
 
-    const card = await getCard('fuzzy', formData.cardName);
+    const card = await getCard(formData.searchType, formData.cardName);
     setCard(card);
   };
   return (
@@ -32,6 +39,25 @@ const SearchForm = (props) => {
             type='text'
             onChange={(e) => {
               setFormData({ ...formData, cardName: e.currentTarget.value });
+            }}
+          />
+        </label>
+        <label htmlFor='searchType'>
+          Search Type:
+          <Select
+            id='searchType'
+            className={styles.select}
+            defaultValue={formData.searchType}
+            options={selectOptions}
+            onChange={(e) => {
+              setFormData({ ...formData, searchType: e.value });
+            }}
+            styles={{
+              control: (base) => ({
+                ...base,
+                height: 50,
+                minHeight: 50
+              })
             }}
           />
         </label>
