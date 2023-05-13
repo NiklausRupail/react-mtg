@@ -1,7 +1,7 @@
 import styles from './Card.module.scss';
 
 const Card = (props) => {
-  const { name, price, rarity, set, src_png, tcplayer, type } = props.card;
+  const { name, price, rarity, set, src_png, tcgplayer, type } = props.card;
   let rarityCap = rarity[0].toUpperCase() + rarity.substr(1);
   return (
     <article className={styles.cardWrapper}>
@@ -26,7 +26,9 @@ const Card = (props) => {
         </ul>
       </main>
       <footer className={styles.cardFooter}>
-        <a href={tcplayer}>Click to Buy</a>
+        <a href={tcgplayer} target='_blank' rel='noreferrer'>
+          Click to Buy
+        </a>
         <p>Price {price}$</p>
       </footer>
     </article>
